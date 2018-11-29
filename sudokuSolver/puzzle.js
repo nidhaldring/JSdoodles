@@ -34,5 +34,5 @@ function drawSudoku(){
 	cxt.stroke();
 }
 
-// when include draw provided grid
+// when included draw provided grid
 drawSudoku();
