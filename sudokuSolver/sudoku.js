@@ -4,7 +4,7 @@
 // such a great lecture !
 
 // hey there ! 
-// if  you want to changed the grid 
+// if  you want to change the grid 
 // then do so by changin "grid" varriable
 // no more !
 // make sure it stays X by X puzzle :x
