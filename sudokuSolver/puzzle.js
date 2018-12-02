@@ -2,10 +2,11 @@
 
 let canvas=document.getElementById("canvas");
 let cxt=canvas.getContext("2d");
-// create grid ;
 let r=canvas.width/l;
+
 // a constant used to better align numbers
 let c=r/2;
+
 
 function drawSudoku(){
 	//clear everything 
@@ -27,12 +28,13 @@ function drawSudoku(){
 	cxt.font="30px Arial";
 	for(let i=0;i<l;++i){
 		for(let j=0;j<l;++j){
-			cxt.fillText(grid[i][j],i*r+c,j*r+c);
+			if(grid[i][j])
+				cxt.fillText(grid[i][j],i*r+c,j*r+c);
 		}
 	}
 	cxt.strokeStyle="black";
 	cxt.stroke();
 }
 
-// when included draw provided grid
+// when first included draw the grid
 drawSudoku();

@@ -5,23 +5,34 @@
 
 // hey there ! 
 // if  you want to change the grid 
-// then do so by changin "grid" varriable
+// then do so by changing "grid" variable
 // no more !
 // make sure it stays X by X puzzle :x
 
-let grid=[
-[7,0,0,0,0,0,2,0,0],
-[4,0,2,0,0,0,0,0,3],
-[0,0,0,2,0,1,0,0,0],
-[3,0,0,1,8,0,0,9,7],
-[0,0,9,0,7,0,6,0,0],
-[6,5,0,0,3,2,0,0,1],
-[0,0,0,4,0,9,0,0,0],
-[5,0,0,0,0,0,1,0,6],
-[0,0,6,0,0,0,0,0,8],
+const grid=[
+[0,0,1,4,0,5,0,0,2],
+[0,6,7,0,0,1,0,0,0],
+[9,0,0,0,8,0,7,3,0],
+[0,0,0,0,0,9,3,4,8],
+[0,0,0,0,1,6,0,0,9],
+[7,2,0,0,0,0,0,5,0],
+[0,0,0,2,0,0,0,0,0],
+[5,4,0,0,0,0,6,0,0],
+[8,0,0,3,0,0,0,1,4],
 ];
+const l=grid.length;
 
-let l=grid.length;
+// rotate the matirx 
+// transpose in place
+for(let i=0;i<l-1;++i){
+	for(let j=i+1;j<l;++j){
+		let tmp=grid[i][j];
+		grid[i][j]=grid[j][i];
+		grid[j][i]=tmp;
+	}
+}
+
+
 
 function isValid(i,j,e){
 	//check hor and ver 
@@ -45,17 +56,19 @@ function findNext(){
 	for(let i=0;i<l;++i){
 		for(let j=0;j<l;++j){
 			if(grid[i][j] == 0)
-				return new Array(i,j);
+				return [i,j];
 		}
 	}
-	// if the whole grid is finished;
-	return new Array(-1,-1);
+	// if the whole grid  has been scanned;
+	return [-1,-1];
 }
 
 function solve(i=0,j=0){
 	// find grid *coughs blood*	
-	if(i == -1)
+	if(i == -1){
+		alert("solved !");
 		return true;
+	}
 	// fin ;
 	// if i've reached the end of the sudoku 
 
@@ -74,15 +87,11 @@ function solve(i=0,j=0){
 	
 	}
 
+	// if no value was found to be put into that grid
+	// than backtrack
+	// smthng is wrong with the previous choices !
 	return false;
 
 }
 
-//solve();
-// print solved grid;
-/*
-for(let i of grid){
-	console.log(i);
-	console.log("");
-}
-*/
+//fin.
