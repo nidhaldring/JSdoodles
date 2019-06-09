@@ -74,12 +74,10 @@ class Grid{
 			this.grid[nextX][nextY] = this.grid[x][y];
 			this.grid[x][y] = 0;
 			this.moveCell(nextX,nextY,i,j);
-			this.cellsMoved++;
 		}else if(this.grid[nextX][nextY] == this.grid[x][y]){
 			this.grid[nextX][nextY] *= 2;
 			this.score += this.grid[nextX][nextY];
 			this.grid[x][y] = 0;
-			this.cellsMoved++;
 		}
 	}
 
