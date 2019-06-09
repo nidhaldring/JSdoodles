@@ -1,0 +1,42 @@
+
+
+<body>
+
+    <script src = "p5.js"></script>
+    <script src = "grid.js"></script>
+    <script>
+    	const grid = new Grid();
+    	let first = true;
+    	function setup(){
+    		createCanvas(400,400);
+    	}
+
+    	function draw(){
+    		
+    		if(!grid.blocked){
+    			grid.draw();
+    		}else{
+    			//background(0);
+				fill(255);
+				textSize(30);
+				text("Over your score is " + grid.score,0,0);
+    		}	
+    	
+    	}
+
+    	function keyPressed(){
+    		if(first){
+    			grid.update(keyCode);
+    			first = false;
+    		}
+    	}
+
+    	function keyReleased(){
+
+    		first = true;
+    	}
+
+
+
+    </script>
+</body>
