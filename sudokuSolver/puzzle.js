@@ -1,40 +1,89 @@
 "use strict";
 
-let canvas=document.getElementById("canvas");
-let cxt=canvas.getContext("2d");
-let r=canvas.width/l;
 
-// a constant used to better align numbers
-let c=r/2;
+const inputs = [];
 
+function createCellWithInputAt(x,y,side){
 
-function drawSudoku(){
-	//clear everything 
-	cxt.clearRect(0, 0, canvas.width, canvas.height);
-	// draw grid lines ;
-	cxt.beginPath();
-	cxt.lineWidth=1.75;
-	for(let i=0;i<=canvas.width;i+=r){
-		cxt.moveTo(i,0);
-		cxt.lineTo(i,canvas.height);
-		cxt.moveTo(0,i);
-		cxt.lineTo(canvas.width,i);
-		cxt.strokeStyle="red";
-		cxt.stroke();
+	let cell;
+	let color = "background-color: #ffffff;";
+
+	if(grid[x][y] != 0){
+		cell = createInput(grid[x][y].toString());
+		cell.attribute("readonly",true);
+		color = "color:#62fc79; background-color: #000000;";
+	}else{
+		cell = createInput("");
 	}
 
-	// draw grid numbers ;
-	cxt.beginPath();
-	cxt.font="30px Arial";
-	for(let i=0;i<l;++i){
-		for(let j=0;j<l;++j){
-			if(grid[i][j])
-				cxt.fillText(grid[i][j],i*r+c,j*r+c);
-		}
-	}
-	cxt.strokeStyle="black";
-	cxt.stroke();
+
+	cell.attribute("style","font-size:35px;" + color);
+	cell.size(side,side);
+	cell.position(side * y,side * x);
+
+	return cell;
 }
 
-// when first included draw the grid
-drawSudoku();
+
+function createCellAt(x,y,side){
+
+	let cell = createCellWithInputAt(x,y,side);
+
+	// + is added to transform the input into a number
+	cell.input((e) => {
+
+		let input = +e.data;
+		if(!Number.isNaN(input) && input > 0){
+			cell.value(input);
+		}else{
+
+			if(!Number.isNaN(+(cell.value()[0]))){
+				cell.value(cell.value()[0]);
+			}else{
+				cell.value("");
+			}
+
+		}	
+
+	}); 
+
+	
+	return cell;
+}
+
+
+function getCellAt(x,y){
+
+	return inputs[x*9 + y];
+}
+
+
+function createSudoku(){
+
+	const side = 50; 
+	for(let i = 0;i < 9;++i){
+		for(let j = 0;j < 9;++j){
+			inputs.push(createCellAt(i,j,side));
+		}
+	}
+}
+
+function updateSudoku(){
+
+	for(let i = 0;i < 9;++i){
+		for(let j = 0;j < 9;++j){
+			let cell = getCellAt(i,j);
+			cell.value(grid[i][j]);
+			cell.attribute("readonly",true);
+		}
+	}
+}
+
+	
+function setup(){
+
+	createCanvas(450,450);
+	createSudoku();
+}
+
+

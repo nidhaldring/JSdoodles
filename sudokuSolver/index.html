@@ -2,9 +2,40 @@
 <html>
 <meta charset="UTF-8">
 <body>
-	<canvas height="600" width="600" id="canvas"></canvas>
-	<script src="sudoku.js"></script>
-	<script src="puzzle.js"></script>
-	<button onclick=solve();drawSudoku();alert("done");>solve</button>
+    <script src = "p5.js"></script>
+    <script src = "p5.dom.js"></script>
+    <script src = "sudoku.js"></script>
+    <script src = "puzzle.js"></script>
+    <br/>   
+    <button id = "solveButton">SOLVE</button>
+    <button id = "checkButton" >CHECK</button>
+
+    <script>
+
+        const solveBtn = document.getElementById("solveButton");
+        const checkBtn = document.getElementById("checkButton");
+
+        solveBtn.onclick = function(){
+            if(solve()){
+                updateSudoku();
+                alert("solved");
+            }else{
+                alert("it does seem that this one is unsolvable ?");
+                alert("please report if this is an error ! ");
+            }
+        }
+
+        checkBtn.onclick = function(){
+            if(sudokuIsCompleted()){
+                alert("Bravo ! Game over champ !");
+            }else{
+                alert("keep on trying !");
+            }
+        }
+
+    </script>
+
+</body>
+
 </body>
 </html>
